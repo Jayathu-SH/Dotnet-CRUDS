@@ -165,3 +165,4 @@ c:\Users\Jayathu\Desktop\crudApp\crudApp\obj\Debug\net9.0\crudApp.genruntimeconf
 c:\Users\Jayathu\Desktop\crudApp\crudApp\obj\Debug\net9.0\ref\crudApp.dll
 C:\Users\Jayathu\Desktop\crudApp\crudApp\bin\Debug\net9.0\Npgsql.dll
 C:\Users\Jayathu\Desktop\crudApp\crudApp\bin\Debug\net9.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Jayathu\Desktop\crudApp\crudApp\obj\Debug\net9.0\crudApp.sourcelink.json
