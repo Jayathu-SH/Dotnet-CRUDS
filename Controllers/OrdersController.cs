@@ -39,7 +39,7 @@ namespace CrudApp.Controllers
         [HttpPost]
         public async Task<ActionResult<OrderResponseDto>> CreateOrder(OrderCreateDto orderDto)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid)//model's validation attributes (like [Required], [StringLength])
             {
                 return BadRequest(ModelState);
             }

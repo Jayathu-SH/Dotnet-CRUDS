@@ -53,7 +53,7 @@ namespace CrudApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ModelState);//ModelState helps you check and handle validation errors automatically in your API endpoints.([Required], [StringLength])
             }
 
             try

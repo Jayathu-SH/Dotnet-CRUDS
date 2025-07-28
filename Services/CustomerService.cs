@@ -32,7 +32,7 @@ namespace CrudApp.Services
             var customer = await _customerRepository.GetByIdAsync(id);
             if (customer is null)
                 throw new KeyNotFoundException();
-            var c = customer!;
+            var c = customer!;//null-forgiving operator (!), customer is not null at this point(to compiler).
             return new CustomerResponseDto
             {
                 Id = c.Id,
