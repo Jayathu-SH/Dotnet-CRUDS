@@ -1,30 +1,4 @@
-// using CrudApp.Models;
-// using Microsoft.EntityFrameworkCore;
 
-// namespace CrudApp.Data
-// {
-//     public class ApplicationDbContext : DbContext
-//     {
-//         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-//             : base(options)
-//         {
-//         }
-
-//         public DbSet<Product> Products { get; set; }
-
-//         protected override void OnModelCreating(ModelBuilder modelBuilder)
-//         {
-//             base.OnModelCreating(modelBuilder);
-            
-//             modelBuilder.Entity<Product>(entity =>
-//             {
-//                 entity.HasKey(e => e.Id);
-//                 entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
-//                 entity.HasIndex(e => e.Name);
-//             });
-//         }
-//     }
-// }
 
 using CrudApp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +15,7 @@ namespace CrudApp.Data
         // DbSets represent the tables in the database
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         // Fluent API to configure models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -66,6 +41,16 @@ namespace CrudApp.Data
 
                 // Adding a default value to the Status column
                 entity.Property(o => o.Status).HasDefaultValue("Pending");
+            });
+
+            // Configuring the Customer entity (optional, for completeness)
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.HasKey(c => c.Id);
+                entity.Property(c => c.Name).IsRequired();
+                entity.Property(c => c.Email).IsRequired();
+                entity.Property(c => c.Phone).IsRequired();
+                entity.Property(c => c.Address).IsRequired();
             });
         }
     }
