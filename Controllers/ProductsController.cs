@@ -15,6 +15,8 @@ namespace CrudApp.Controllers
             _productService = productService;
         }
 
+        // Async/Await: Non-blocking operations
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductResponseDto>>> GetProducts()
         {

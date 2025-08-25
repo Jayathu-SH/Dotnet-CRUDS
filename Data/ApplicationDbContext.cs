@@ -13,9 +13,10 @@ namespace CrudApp.Data
         }
 
         // DbSets represent the tables in the database
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
 
         // Fluent API to configure models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,12 +36,20 @@ namespace CrudApp.Data
             {
                 entity.HasKey(o => o.Id);  // Primary key
                 entity.Property(o => o.TotalPrice).HasColumnType("decimal(18,2)");  // Configure TotalPrice column
-                entity.HasOne(o => o.Product)  // Define relationship with Product
-                      .WithMany()  // A product can have many orders
-                      .HasForeignKey(o => o.ProductId);  // Foreign key to Product
-
-                // Adding a default value to the Status column
                 entity.Property(o => o.Status).HasDefaultValue("Pending");
+                entity.HasMany(o => o.OrderDetails)
+                      .WithOne(od => od.Order)
+                      .HasForeignKey(od => od.OrderId);
+            });
+
+            // Configuring the OrderDetail entity
+            modelBuilder.Entity<OrderDetail>(orderDetail =>
+            {
+                orderDetail.HasKey(x => x.Id);
+                orderDetail.Property(x => x.UnitPrice).HasColumnType("decimal(18,2)");
+                orderDetail.HasOne(x => x.Product)
+                             .WithMany()
+                             .HasForeignKey(x => x.ProductId);
             });
 
             // Configuring the Customer entity (optional, for completeness)

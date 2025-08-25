@@ -15,12 +15,12 @@ namespace CrudApp.Repositories
 
         public async Task<IEnumerable<CrudApp.Models.Order>> GetAllAsync()
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Orders.Include(o => o.OrderDetails).ToListAsync();
         }
 
         public async Task<CrudApp.Models.Order?> GetByIdAsync(int id)
         {
-            return await _context.Orders.FindAsync(id);
+            return await _context.Orders.Include(o => o.OrderDetails).FirstOrDefaultAsync(o => o.Id == id);
         }
 
         public async Task<CrudApp.Models.Order> CreateAsync(CrudApp.Models.Order order)
@@ -36,10 +36,7 @@ namespace CrudApp.Repositories
             if (existingOrder == null)
                 return null;
 
-            existingOrder.Quantity = order.Quantity;
             existingOrder.Status = order.Status;
-            existingOrder.TotalPrice = order.Quantity * existingOrder.TotalPrice;  // Recalculate price if needed
-
             await _context.SaveChangesAsync();
             return existingOrder;
         }

@@ -16,7 +16,7 @@ namespace CrudApp.Repositories
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await _context.Products
-                .OrderBy(p => p.Name)
+                .OrderBy(p => p.Name)//p-product
                 .ToListAsync();
         }
 
