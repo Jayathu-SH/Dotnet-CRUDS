@@ -17,11 +17,23 @@ namespace CrudApp.Data
     public DbSet<Order> Orders { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<OrderDetail> OrderDetails { get; set; }
+    public DbSet<Transaction> Transactions { get; set; }
 
         // Fluent API to configure models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Configuring the Transaction entity
+            modelBuilder.Entity<Transaction>(entity =>
+            {
+                entity.HasKey(t => t.Id);
+                entity.Property(t => t.Amount).HasColumnType("decimal(18,2)");
+                entity.Property(t => t.PaymentMethod).IsRequired();
+                entity.HasOne(t => t.Order)
+                      .WithMany()
+                      .HasForeignKey(t => t.OrderId);
+            });
 
             // Configuring the Product entity
             modelBuilder.Entity<Product>(entity =>
